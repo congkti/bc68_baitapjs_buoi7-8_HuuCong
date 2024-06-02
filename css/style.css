@@ -348,6 +348,7 @@ h6 {
 input,
 select {
   height: 40px;
+  padding: 8px;
   font-size: 16px;
   border: 1px solid;
   border-radius: 5px;
@@ -384,6 +385,9 @@ input[type="radio"] ~ label {
   cursor: pointer;
   margin: 0 auto;
   vertical-align: middle;
+}
+button {
+  padding: 10px 20px;
 }
 label,
 button {
@@ -460,11 +464,90 @@ button {
 .readNumber:first-letter {
   text-transform: uppercase;
 }
-
+.inputGroup input {
+  width: 100%;
+  box-sizing: border-box;
+}
+.buttons button {
+  margin: 5px;
+}
 /* ==========end global======= */
-
-.container {
+body {
+  background-color: var(--grayLightColor);
+}
+.container.box {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.leftSide,
+.rightSide,
+.middleSide {
+  height: 95vh;
+  overflow: auto;
+  overflow-y: scroll;
+}
+.rightSide .accordion-item {
+  border-color: var(--magentaHover);
+}
+.rightSide .accordion-item:hover,
+.rightSide .accordion-item:hover button,
+.rightSide .accordion-item:has(.accordion-button:not(.collapsed)) {
+  background-color: #eee;
+}
+.rightSide .accordion-item:hover,
+.rightSide .accordion-item:has(.accordion-button:not(.collapsed)) {
+  /* border-color: var(--magentaDark);
+  border-style: solid;
+  border-width: 0 2px 2px; */
+}
+.rightSide .accordion-item:has(button.collapsed) {
+  /* height: 62px; */
+}
+.rightSide .accordion-button {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--magentaDark);
+}
+
+.rightSide .accordion-button:focus {
+  box-shadow: none;
+}
+.rightSide .accordion-item:hover .accordion-button:not(.collapsed),
+.rightSide .accordion-button:not(.collapsed):hover,
+.rightSide .accordion-button:not(.collapsed) {
+  background-color: var(--magentaDark);
+  color: #fff;
+}
+
+/* ====================| CSS responsive |================= */
+/* `xxl` applies to x-large devices (large desktops, less than 1400px) */
+@media screen and (max-width: 1399.98px) {
+}
+
+/* `xl` applies to large devices (desktops, less than 1200px) */
+@media screen and (max-width: 1199.98px) {
+}
+
+/* `lg` applies to medium devices (tablets, less than 992px) */
+@media screen and (max-width: 991.98px) {
+}
+/* `md` applies to small devices (landscape phones, less than 768px) */
+@media screen and (max-width: 767.98px) {
+  .leftSide,
+  .rightSide,
+  .middleSide {
+    height: max-content;
+    overflow: unset;
+  }
+}
+
+/* `sm` applies to x-small devices (portrait phones, less than 576px) */
+@media screen and (max-width: 575.98px) {
+}
+/* fix to xx-small devices */
+@media screen and (max-width: 500px) {
+}
+@media screen and (max-width: 328px) {
+}
+/* ==================| end CSS responsive |=============== */

@@ -55,42 +55,246 @@ function usNum(num) {
   return (num = num.toLocaleString("en-US"));
 }
 // Nhập nội dung vô selector
-function nhapBill(idNhap, NoiDungNhap) {
-  document.getElementById(idNhap).innerHTML = NoiDungNhap;
+function nhapKetQua(elmentNhap, NoiDungNhap) {
+  document.querySelector(elmentNhap).innerHTML = NoiDungNhap;
 }
 // ======end global fn
 
+/**=============
+ * Nhập số vào mảng
+ */
+let arrNumber = [];
+let inputNumber = document.getElementById("ipNumber");
+let theShowArray = document.querySelector(".showArray");
+document.getElementById("formLeftSide").addEventListener("submit", () => {
+  event.preventDefault();
+  arrNumber.push(inputNumber.value * 1);
+  if (arrNumber.length <= 1) {
+    theShowArray.innerText += inputNumber.value * 1;
+  } else {
+    theShowArray.innerText += " , " + inputNumber.value * 1;
+  }
+
+  // console.log(arrNumber);
+  inputNumber.value = "";
+  inputNumber.focus();
+});
 /**=============================
- * BÀI TẬP 1: QUẢN LÝ TUYỂN SINH
- * - Thí sinh trúng tuyển nếu có điểm tổng kết >= điểm chuẩn &&  không có môn 0 điểm
- * - Điểm tổng = Tổng điểm 3 môn + Điểm ưu tiên
- * - Điểm ưu tiên tính theo khu vực và đối tượng:
- *  + Khu vực: A: 2 điểm | B: 1 điểm | C: 0.5 điểm
- *  + Đối tượng: 1: 2.5 điểm | 2: 1.5 điểm | 3: 1 điểm
- * ==============================
- *   Sơ đồ 3 khối
- *
- * 1. Đầu vào:
- * - Người dùng nhập vào Điểm chuẩn của hội đồng + Điểm thi 3 môn + Đối tượng ưu tiên + Khu vực ưu tiên.
- *
- *
- * 2. Xử lý:
- * - Bước 1: DOM đến button tính điểm để gắn sự kiện click --> Sau đó DOM tới các đối tượng để lấy dữ liệu liên quan.
- * - Bước 2: Kiểm tra dữ liệu trước khi tính:
- *   + Điểm thi 3 môn: là số >=0, không nhập hiểu là = 0.
- *  !!! Nếu có ít nhất 1 trong 3 môn điểm bằng 0 thì trả ngay về kết quả "thi rớt" và dừng chương trình.
- *   + Điểm chuẩn: bắt buộc nhập và là number > 0
- *   + Khu vực ưu tiên: mặc định không nhập là không thuộc khu vực ưu tiên (điểm cộng = 0)
- *   + Đối tượng ưu tiên: mặc định không nhập là không thuộc đối tượng ưu tiên (điểm cộng = 0)
- * - Bước 3: Tính điểm ưu tiên theo khu vực và đối tượng:
- *  + Khu vực: A: 2 điểm | B: 1 điểm | C: 0.5 điểm
- *  + Đối tượng: 1: 2.5 điểm | 2: 1.5 điểm | 3: 1 điểm
- * - Bước 3: Tính Tổng Điểm = [Tổng điểm 3 môn]+[Điểm Khu vực ưu tiên]+[Điểm đối tượng Ưu tiên]
- * - Bước 4: So sánh với Điểm chuẩn để ra kết quả thi:
- *   + Nếu >= điểm chuẩn -> Đậu;
- *   + Nếu < điểm chuẩn -> Rớt
- *
- *
- * 3. Đầu ra:  Hiển thị kết quả lên giao diện
+ * BÀI 1: Tổng các số dương trong mảng
  *
  */
+document.getElementById("btnClickB1").addEventListener("click", () => {
+  let bai1TongSoDuong = 0;
+  arrNumber.forEach((num, i) => {
+    if (num > 0) {
+      bai1TongSoDuong += num;
+    }
+  });
+  console.log(bai1TongSoDuong);
+  nhapKetQua(
+    ".result.bai1",
+    "Tổng các số dương trong mảng là: " + bai1TongSoDuong
+  );
+});
+
+/**=============================
+ * BÀI 2: Đếm các số dương trong mảng
+ *
+ */
+document.getElementById("btnClickB2").addEventListener("click", () => {
+  let bai2DemSoDuong = 0;
+  arrNumber.forEach((num, i) => {
+    if (num > 0) {
+      bai2DemSoDuong++;
+    }
+  });
+  nhapKetQua(
+    ".result.bai2",
+    "Tổng cộng có " + bai2DemSoDuong + " số dương trong mảng"
+  );
+});
+
+/**=============================
+ * BÀI 3: Tìm số nhỏ nhất trong mảng
+ *
+ */
+document.getElementById("btnClickB3").addEventListener("click", () => {
+  let bai3SoNhoNhat = arrNumber[0];
+  arrNumber.forEach((num, i) => {
+    if (num < bai3SoNhoNhat) {
+      bai3SoNhoNhat = num;
+    }
+  });
+  nhapKetQua(".result.bai3", `Số nhỏ nhất trong mảng là: ${bai3SoNhoNhat}`);
+});
+
+/**=============================
+ * BÀI 4: Tìm số dương nhỏ nhất trong mảng
+ *
+ */
+document.getElementById("btnClickB4").addEventListener("click", () => {
+  let arrSoDuong = [];
+  arrNumber.forEach((num, i) => {
+    if (num >= 0) {
+      arrSoDuong.push(num);
+    }
+  });
+  // console.log(arrSoDuong);
+  // console.log(arrSoDuong.sort((a, b) => a - b));
+  let bai4SoDuongNhoNhat = arrSoDuong.sort((a, b) => a - b)[0];
+
+  nhapKetQua(
+    ".result.bai4",
+    `Số dương nhỏ nhất trong mảng là: ${bai4SoDuongNhoNhat}`
+  );
+});
+
+/**===========================================
+ * BÀI 5: Tìm số CHẴN CUỐI CÙNG trong mảng
+ *
+ */
+document.getElementById("btnClickB5").addEventListener("click", () => {
+  let arrSoChan = [];
+  let bai5SoChanCuoiCung = -1;
+  arrNumber.forEach((num, i) => {
+    if (num % 2 == 0) {
+      arrSoChan.push(num);
+    }
+  });
+
+  let content5 = "";
+  if (arrSoChan.length == 0) {
+    content5 = "Không có số chẵn trong mảng [ " + arrNumber + " ]";
+  } else {
+    content5 = `Số chẵn cuối cùng trong mảng là: ${
+      arrSoChan[arrSoChan.length - 1]
+    }`;
+  }
+
+  console.log(arrSoChan);
+  nhapKetQua(".result.bai5", content5);
+});
+
+/**===========================================
+ * BÀI 6: Đổi chỗ 2 giá trị trong mảng theo vị trí
+ * nhập vào 2 vị trí cần đổi chỗ cho nhau
+ */
+let arrNumberChanged = arrNumber; //để ko ảnh hưởng đến arrNumber cho phía sau
+let content6 = "";
+document.getElementById("btnClickB6").addEventListener("click", () => {
+  let viTriThu1 = document.querySelector(".viTri1").value * 1;
+  let viTriThu2 = document.querySelector(".viTri2").value * 1;
+  if (
+    viTriThu1 >= arrNumberChanged.length ||
+    viTriThu2 >= arrNumberChanged.length
+  ) {
+    alert("Kiểm tra lại vị trí 1 hoặc 2 không có trong mảng hiện tại");
+    document.querySelector(".viTri1").focus();
+  } else {
+    let tmp = arrNumberChanged[viTriThu1];
+    arrNumberChanged[viTriThu1] = arrNumberChanged[viTriThu2];
+    arrNumberChanged[viTriThu2] = tmp;
+    console.log(arrNumberChanged);
+    content6 += `Mảng sau khi đổi &rarr; N = [ ${arrNumberChanged} ]<br />`;
+    nhapKetQua(".result.bai6", content6);
+  }
+});
+
+/**===========================================
+ * BÀI 7: Sắp xếp mảng theo thứ tự tăng dần
+ *
+ */
+let arrNumberB7 = arrNumber;
+document.getElementById("btnClickB7").addEventListener("click", () => {
+  nhapKetQua(
+    ".result.bai7",
+    `Mảng sắp xếp tăng dần: ${arrNumberB7.sort((a, b) => a - b)}`
+  );
+});
+
+/**===========================================
+ * BÀI 8: Tìm số nguyên tố đầu tiên trong mảng
+ * nếu không có số nguyên tố thì trả về -1
+ */
+const KIEM_TRA_SO_NT = (n) => {
+  if (n < 2) {
+    // console.log(n + " không phải là số nguyên tố");
+    return false;
+  } else {
+    for (let i = 2; i <= Math.ceil(n / 2); i++) {
+      if (n % i === 0) {
+        // console.log(n + " không phải là số nguyên tố");
+        return false;
+      }
+    }
+    // console.log(n + " là số nguyên tố");
+    return true;
+  }
+};
+console.log(KIEM_TRA_SO_NT(13));
+
+document.getElementById("btnClickB8").addEventListener("click", () => {
+  let arrNumberB8 = arrNumber;
+  let arrSoNguyenTo = [];
+  arrNumberB8.forEach((num, i) => {
+    if (KIEM_TRA_SO_NT(num)) {
+      arrSoNguyenTo.push(num);
+    }
+  });
+  let content8 = "";
+  if (arrSoNguyenTo.length == 0) {
+    content8 = "Không có số nguyên tố trong mảng" + arrSoNguyenTo;
+  } else {
+    content8 = `Số nguyên tố đầu tiên trong mảng là: ${arrSoNguyenTo[0]}`;
+  }
+
+  nhapKetQua(".result.bai8", content8);
+  console.log(arrSoNguyenTo);
+});
+
+/**===========================================
+ * BÀI 9: Đếm có bao nhiêu số nguyên trong mảng
+ *
+ */
+document.getElementById("btnClickB9").addEventListener("click", () => {
+  let count = 0;
+  arrNumber.forEach((num, i) => {
+    if (Number.isInteger(num * 1)) {
+      console.log("số nguyên");
+      count++;
+    }
+  });
+
+  nhapKetQua(".result.bai9", `Có tổng cộng ${count} số nguyên trong mảng`);
+});
+
+/**===========================================
+ * BÀI 10: So sánh số lượng số âm và dương
+ *
+ */
+
+document.getElementById("btnClickB10").addEventListener("click", () => {
+  let countDuong = 0;
+  let countAm = 0;
+
+  arrNumber.forEach((num, i) => {
+    if (num > 0) {
+      countDuong++;
+    } else if (num < 0) {
+      countAm++;
+    }
+  });
+  console.log(countAm, countDuong);
+  let content10 = "";
+  if (countAm == countDuong) {
+    content10 = "Tổng số Âm BẰNG tổng số Dương";
+  } else {
+    if (countAm > countDuong) {
+      content10 = `Số lượng số Âm (${countAm}) NHIỀU HƠN số lượng số Dương (${countDuong})`;
+    } else {
+      content10 = `Số lượng số Âm (${countAm}) ÍT HƠN số lượng số Dương (${countDuong})`;
+    }
+  }
+
+  nhapKetQua(".result.bai10", content10);
+});
