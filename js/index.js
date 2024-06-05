@@ -254,6 +254,9 @@ document.getElementById("btnClickB8").addEventListener("click", () => {
 
 /**===========================================
  * BÀI 9: Đếm có bao nhiêu số nguyên trong mảng
+ * 05/06->fix lỗi ko nhập đc số thực
+ * nguyên nhân do validate tự động của type="number"
+ * xử lý: trong html input thêm vào  attribute step="any" để nhập đc số thực bất kỳ, hoặc step="0.01" -> nhập số thực chính xác 2 đến 2 chữ số thập phân,...
  *
  */
 document.getElementById("btnClickB9").addEventListener("click", () => {
