@@ -79,6 +79,7 @@ document.getElementById("formLeftSide").addEventListener("submit", () => {
   inputNumber.value = "";
   inputNumber.focus();
 });
+
 /**=============================
  * BÀI 1: Tổng các số dương trong mảng
  *
@@ -155,7 +156,6 @@ document.getElementById("btnClickB4").addEventListener("click", () => {
  */
 document.getElementById("btnClickB5").addEventListener("click", () => {
   let arrSoChan = [];
-  let bai5SoChanCuoiCung = -1;
   arrNumber.forEach((num, i) => {
     if (num % 2 == 0) {
       arrSoChan.push(num);
@@ -179,33 +179,37 @@ document.getElementById("btnClickB5").addEventListener("click", () => {
  * BÀI 6: Đổi chỗ 2 giá trị trong mảng theo vị trí
  * nhập vào 2 vị trí cần đổi chỗ cho nhau
  */
-let arrNumberChanged = arrNumber; //để ko ảnh hưởng đến arrNumber cho phía sau
+let arrNumberB6 = [];
 let content6 = "";
 document.getElementById("btnClickB6").addEventListener("click", () => {
+  if (arrNumberB6.length == 0) {
+    arrNumberB6 = [...arrNumber]; //để ko ảnh hưởng đến arrNumber cho phía sau
+  }
   let viTriThu1 = document.querySelector(".viTri1").value * 1;
   let viTriThu2 = document.querySelector(".viTri2").value * 1;
-  if (
-    viTriThu1 >= arrNumberChanged.length ||
-    viTriThu2 >= arrNumberChanged.length
-  ) {
+  if (viTriThu1 >= arrNumberB6.length || viTriThu2 >= arrNumberB6.length) {
     alert("Kiểm tra lại vị trí 1 hoặc 2 không có trong mảng hiện tại");
     document.querySelector(".viTri1").focus();
   } else {
-    let tmp = arrNumberChanged[viTriThu1];
-    arrNumberChanged[viTriThu1] = arrNumberChanged[viTriThu2];
-    arrNumberChanged[viTriThu2] = tmp;
-    console.log(arrNumberChanged);
-    content6 += `Mảng sau khi đổi &rarr; N = [ ${arrNumberChanged} ]<br />`;
+    let tmp = arrNumberB6[viTriThu1];
+    arrNumberB6[viTriThu1] = arrNumberB6[viTriThu2];
+    arrNumberB6[viTriThu2] = tmp;
+    console.log(arrNumberB6);
+    content6 += `Mảng sau khi đổi &rarr; N = [ ${arrNumberB6} ]<br />`;
     nhapKetQua(".result.bai6", content6);
   }
+
+  console.log("mới", arrNumberB6);
+  console.log("cũ", arrNumber);
 });
 
 /**===========================================
  * BÀI 7: Sắp xếp mảng theo thứ tự tăng dần
  *
  */
-let arrNumberB7 = arrNumber;
+
 document.getElementById("btnClickB7").addEventListener("click", () => {
+  let arrNumberB7 = [...arrNumber];
   nhapKetQua(
     ".result.bai7",
     `Mảng sắp xếp tăng dần: ${arrNumberB7.sort((a, b) => a - b)}`
